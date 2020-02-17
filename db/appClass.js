@@ -30,6 +30,7 @@ class appClass {
       .then(updatedNotes => this.write(updatedNotes))
       .then(() => newNote);
   }
+  
   getNotes() {
     return this.read().then(notes => {
       let parsedNotes;

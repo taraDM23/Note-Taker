@@ -14,7 +14,7 @@ app.use(express.json());
 
 //Call Route files
 app.use(express.static("public"));
-app.get("/api", apiRoute);
+app.get("/notes", apiRoute);
 app.get("/", htmlRoute);
 
 // Start the server to begin listening
