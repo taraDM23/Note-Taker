@@ -5,7 +5,7 @@ const writeFileAsync = util.promisify(fs.writeFile);
 
 class appClass {
   constructor() {
-    this.ID = 0
+    this.ID = 0;
   }
 
   read() {
@@ -16,7 +16,19 @@ class appClass {
     return writeFileAsync("db/db.json", JSON.stringify(note));
   }
 
-  
+  getNotes() {
+    return this.read().then(notes => {
+      let parsedNotes;
+
+      try {
+        parsedNotes = [].concat(JSON.parse(notes));
+      } catch (err) {
+        parsedNotes = [];
+      }
+      return parsedNotes;
+    });
+  }
+
   postNote(note) {
     const { title, text } = note;
 
@@ -29,19 +41,6 @@ class appClass {
       .then(notes => [...notes, newNote])
       .then(updatedNotes => this.write(updatedNotes))
       .then(() => newNote);
-  }
-  
-  getNotes() {
-    return this.read().then(notes => {
-      let parsedNotes;
-
-      try {
-        parsedNotes = [].concat(JSON.parse(notes));
-      } catch (err) {
-        parsedNotes = [];
-      }
-      return parsedNotes;
-    });
   }
 
   deleteNote(id) {
